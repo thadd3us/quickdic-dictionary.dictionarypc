@@ -36,6 +36,7 @@ import com.hughes.android.dictionary.engine.EntrySource;
 import com.hughes.android.dictionary.engine.EntryTypeName;
 import com.hughes.android.dictionary.engine.IndexBuilder;
 import com.hughes.android.dictionary.engine.IndexedEntry;
+import com.hughes.android.dictionary.engine.WiktionarySplitter;
 import com.hughes.android.dictionary.parser.Parser;
 import com.hughes.android.dictionary.parser.WikiTokenizer;
 import com.hughes.util.EnumUtil;
@@ -66,20 +67,10 @@ public abstract class AbstractWiktionaryParser implements Parser {
         return;
       }
       
-      try {
-        title = dis.readUTF();
-      } catch (EOFException e) {
-        LOG.log(Level.INFO, "EOF reading split.");
-        dis.close();
-        return;
-      }
-      final String heading = dis.readUTF();
-      final int bytesLength = dis.readInt();
-      final byte[] bytes = new byte[bytesLength];
-      dis.readFully(bytes);
-      final String text = new String(bytes, "UTF8");
+      WiktionarySplitter.Article article = new WiktionarySplitter.Article(dis);
       
-      parseSection(heading, text);
+      title = article.title;
+      parseSection(article.heading, article.text);
 
       ++pageCount;
       if (pageCount % 1000 == 0) {

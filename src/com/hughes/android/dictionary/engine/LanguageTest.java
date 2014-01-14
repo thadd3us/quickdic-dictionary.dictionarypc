@@ -183,10 +183,10 @@ public class LanguageTest extends TestCase {
 
   
   public void testEnWiktionaryNames() {
-    final Set<String> enLangs = new LinkedHashSet<String>(WiktionaryLangs.isoCodeToEnWikiName.keySet());
+    final Set<String> enLangs = new LinkedHashSet<String>(WiktionaryLangs.isoCodeToEnWikiRegex.keySet());
     final List<String> names = new ArrayList<String>();
-    for (final String code : WiktionaryLangs.isoCodeToEnWikiName.keySet()) {
-      names.add(WiktionaryLangs.isoCodeToEnWikiName.get(code));
+    for (final String code : WiktionaryLangs.isoCodeToEnWikiRegex.keySet()) {
+      names.add(WiktionaryLangs.isoCodeToEnWikiRegex.get(code));
       enLangs.add(code.toLowerCase());
     }
     Collections.sort(names);

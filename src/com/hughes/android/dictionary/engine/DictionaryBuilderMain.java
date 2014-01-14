@@ -111,6 +111,7 @@ public class DictionaryBuilderMain extends TestCase {
       {"JA", "cmn" },
       {"JA", "AR" },
       {"JA", "KO" },
+      {"JA", "TH" },  // Thai
 
       {"cmn", "AR" },
       {"cmn", "DE" },
@@ -256,7 +257,7 @@ public class DictionaryBuilderMain extends TestCase {
     // Deal with the pairs where one is English.
     if (Arrays.asList(pair).contains("EN")) {
       final String foreignIso = getOtherLang(pair, "EN");
-      String foreignRegex = WiktionaryLangs.isoCodeToEnWikiName.get(foreignIso);
+      String foreignRegex = WiktionaryLangs.isoCodeToEnWikiRegex.get(foreignIso);
       
       result.add(String.format("--lang1=%s", lang1));
       result.add(String.format("--lang2=%s",  lang2));
@@ -315,7 +316,7 @@ public class DictionaryBuilderMain extends TestCase {
     
     allPairs.addAll(Arrays.asList(nonEnPairs));
     // Add all the EN-XX pairs.
-    for (final String isoCode : WiktionaryLangs.isoCodeToEnWikiName.keySet()) {
+    for (final String isoCode : WiktionaryLangs.isoCodeToEnWikiRegex.keySet()) {
       if (!isoCode.equals("EN")) {
           allPairs.add(new String[] {"EN", isoCode});
       }

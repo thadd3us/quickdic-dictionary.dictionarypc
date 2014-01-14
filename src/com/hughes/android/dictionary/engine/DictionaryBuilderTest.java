@@ -220,51 +220,52 @@ public class DictionaryBuilderTest extends TestCase {
         "EN.data", "enwiktionary.english", "Italian", "it", 1000);
   }
 
-  public void testWiktionary_cmn_EN() throws Exception {
+  public void testEnWiktionary_cmn_EN() throws Exception {
     wiktionaryTestWithLangToEn("wiktionary.cmn_en.quickdic", "cmn", "empty.txt",
         // These missing "e" prevents a complete match, forcing the name to be printed
         "EN.data", "enwiktionary.english", "Chinese|Mandarin", "cmn", 1000);
   }
+  
+  // Chinese
+  public void testEnWiktionary_cmn_cmn() throws Exception {
+    wiktionaryTestWithLangToEn("wiktionary.cmn_cmn.quickdic", "cmn", "empty.txt",
+        // These missing "e" prevents a complete match, forcing the name to be printed.
+        "cmn.data", "enwiktionary.chinese", "Chinese|Mandarin", "cmn", 1000);
+  }
 
-  public void testWiktionary_DE_EN() throws Exception {
+
+  public void testEnWiktionary_DE_EN() throws Exception {
     wiktionaryTestWithLangToEn("wiktionary.de_en.quickdic", "DE", "de.txt",
         "EN.data", "enwiktionary.english", "German", "de", 1000);
   }
 
-  public void testWiktionary_IT_IT() throws Exception {
+  public void testEnWiktionary_IT_EN() throws Exception {
     wiktionaryTestWithLangToEn("wiktionary.it_it.quickdic", "IT", "it.txt",
         "IT.data", "enwiktionary.italian", "Italian", "it", 1000);
   }
 
   // French
-  public void testWiktionary_FR_FR() throws Exception {
+  public void testEnWiktionary_FR_FR() throws Exception {
     wiktionaryTestWithLangToEn("wiktionary.fr_fr.quickdic", "FR", "fr.txt",
         "FR.data", "enwiktionary.french", "French", "fr", 1000);
   }
 
   
   // Arabic
-  public void testWiktionary_AR_AR() throws Exception {
+  public void testEnWiktionary_AR_AR() throws Exception {
       // Arabic is really big for some reason, use fewer pages.
     wiktionaryTestWithLangToEn("wiktionary.ar_ar.quickdic", "AR", "empty.txt",
         "AR.data", "enwiktionary.arabic", "Arabic", "ar", 200);
   }
 
-  // Chinese
-  public void testWiktionary_cmn_cmn() throws Exception {
-    wiktionaryTestWithLangToEn("wiktionary.cmn_cmn.quickdic", "cmn", "empty.txt",
-        // These missing "e" prevents a complete match, forcing the name to be printed.
-        "cmn.data", "enwiktionary.chinese", "Chinese|Mandarin", "cmn", 1000);
-  }
-
   // German
-  public void testWiktionary_DE_DE() throws Exception {
+  public void testEnWiktionary_DE_DE() throws Exception {
     wiktionaryTestWithLangToEn("wiktionary.de_de.quickdic", "DE", "de.txt",
         "DE.data", "enwiktionary.german", "German", "de", 1000);
   }
 
   // Thai
-  public void testWiktionary_TH_TH() throws Exception {
+  public void testEnWiktionary_TH_TH() throws Exception {
     wiktionaryTestWithLangToEn("wiktionary.th_th.quickdic", "TH", "empty.txt",
         // These missing "e" prevents a complete match, forcing the name to be printed.
         "TH.data", "enwiktionary.thai", "Thai", "th", 1000);

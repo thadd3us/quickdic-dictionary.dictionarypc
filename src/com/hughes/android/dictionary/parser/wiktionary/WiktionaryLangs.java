@@ -16,99 +16,101 @@ package com.hughes.android.dictionary.parser.wiktionary;
 
 import com.hughes.android.dictionary.engine.Language;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.regex.Pattern;
 
 public class WiktionaryLangs {
   
-  public static final Map<String,String> isoCodeToEnWikiName = new LinkedHashMap<String,String>();
+  public static final Map<String,String> isoCodeToEnWikiRegex = new LinkedHashMap<String,String>();
   static {
-    isoCodeToEnWikiName.put("AF", "Afrikaans");
-    isoCodeToEnWikiName.put("SQ", "Albanian");
-    isoCodeToEnWikiName.put("AR", "Arabic");
-    isoCodeToEnWikiName.put("HY", "Armenian");
-    isoCodeToEnWikiName.put("BE", "Belarusian");
-    isoCodeToEnWikiName.put("BN", "Bengali");
-    isoCodeToEnWikiName.put("BG", "Bulgarian");
-    isoCodeToEnWikiName.put("CA", "Catalan");
-    isoCodeToEnWikiName.put("SH", "Serbo-Croatian");
-    isoCodeToEnWikiName.put("HR", "Croatian");
-    isoCodeToEnWikiName.put("CS", "Czech");
-    isoCodeToEnWikiName.put("ZH", "Chinese");
-    isoCodeToEnWikiName.put("cmn", "Mandarin");
-    isoCodeToEnWikiName.put("yue", "Cantonese");
-    isoCodeToEnWikiName.put("DA", "Danish");
-    isoCodeToEnWikiName.put("NL", "Dutch");
-    isoCodeToEnWikiName.put("EN", "English");
-    isoCodeToEnWikiName.put("EO", "Esperanto");
-    isoCodeToEnWikiName.put("ET", "Estonian");
-    isoCodeToEnWikiName.put("FI", "Finnish");
-    isoCodeToEnWikiName.put("FR", "French");
-    isoCodeToEnWikiName.put("DE", "German");
-    isoCodeToEnWikiName.put("EL", "Greek");
-    isoCodeToEnWikiName.put("grc", "Ancient Greek");
-    isoCodeToEnWikiName.put("haw", "Hawaiian");
-    isoCodeToEnWikiName.put("HE", "Hebrew");
-    isoCodeToEnWikiName.put("HI", "Hindi");
-    isoCodeToEnWikiName.put("HU", "Hungarian");
-    isoCodeToEnWikiName.put("IS", "Icelandic");
-    isoCodeToEnWikiName.put("ID", "Indonesian");
-    isoCodeToEnWikiName.put("GA", "Irish");
-    isoCodeToEnWikiName.put("GD", "Gaelic");
-    isoCodeToEnWikiName.put("GV", "Manx");
-    isoCodeToEnWikiName.put("IT", "Italian");
-    isoCodeToEnWikiName.put("LA", "Latin");
-    isoCodeToEnWikiName.put("LV", "Latvian");
-    isoCodeToEnWikiName.put("LT", "Lithuanian");
-    isoCodeToEnWikiName.put("JA", "Japanese");
-    isoCodeToEnWikiName.put("KO", "Korean");
-    isoCodeToEnWikiName.put("KU", "Kurdish");
-    isoCodeToEnWikiName.put("LO", "Lao");
-    isoCodeToEnWikiName.put("MS", "Malay$");
-    isoCodeToEnWikiName.put("ML", "Malayalam");
-    isoCodeToEnWikiName.put("MI", "Maori");
-    isoCodeToEnWikiName.put("MN", "Mongolian");
-    isoCodeToEnWikiName.put("NE", "Nepali");
-    isoCodeToEnWikiName.put("NO", "Norwegian");
-    isoCodeToEnWikiName.put("FA", "Persian");
-    isoCodeToEnWikiName.put("PL", "Polish");
-    isoCodeToEnWikiName.put("PT", "Portuguese");
-    isoCodeToEnWikiName.put("PA", "Punjabi");
-    isoCodeToEnWikiName.put("RO", "Romanian");
-    isoCodeToEnWikiName.put("RU", "Russian");
-    isoCodeToEnWikiName.put("SA", "Sanskrit");
-    isoCodeToEnWikiName.put("SK", "Slovak");
-    isoCodeToEnWikiName.put("SL", "Slovene|Slovenian");
-    isoCodeToEnWikiName.put("SO", "Somali");
-    isoCodeToEnWikiName.put("ES", "Spanish");
-    isoCodeToEnWikiName.put("SW", "Swahili");
-    isoCodeToEnWikiName.put("SV", "Swedish");
-    isoCodeToEnWikiName.put("TL", "Tagalog");
-    isoCodeToEnWikiName.put("TG", "Tajik");
-    isoCodeToEnWikiName.put("TA", "Tamil");
-    isoCodeToEnWikiName.put("TH", "Thai");
-    isoCodeToEnWikiName.put("BO", "Tibetan");
-    isoCodeToEnWikiName.put("TR", "Turkish");
-    isoCodeToEnWikiName.put("UK", "Ukrainian");
-    isoCodeToEnWikiName.put("UR", "Urdu");
-    isoCodeToEnWikiName.put("VI", "Vietnamese");
-    isoCodeToEnWikiName.put("CI", "Welsh");
-    isoCodeToEnWikiName.put("YI", "Yiddish");
-    isoCodeToEnWikiName.put("ZU", "Zulu");
-    isoCodeToEnWikiName.put("AZ", "Azeri");
-    isoCodeToEnWikiName.put("EU", "Basque");
-    isoCodeToEnWikiName.put("BR", "Breton");
-    isoCodeToEnWikiName.put("MR", "Marathi");
-    isoCodeToEnWikiName.put("FO", "Faroese");
-    isoCodeToEnWikiName.put("GL", "Galician");
-    isoCodeToEnWikiName.put("KA", "Georgian");
-    isoCodeToEnWikiName.put("HT", "Haitian Creole");
-    isoCodeToEnWikiName.put("LB", "Luxembourgish");
-    isoCodeToEnWikiName.put("MK", "Macedonian");
-    isoCodeToEnWikiName.put("GV", "Manx");
+    isoCodeToEnWikiRegex.put("AF", "Afrikaans");
+    isoCodeToEnWikiRegex.put("SQ", "Albanian");
+    isoCodeToEnWikiRegex.put("AR", "Arabic");
+    isoCodeToEnWikiRegex.put("HY", "Armenian");
+    isoCodeToEnWikiRegex.put("BE", "Belarusian");
+    isoCodeToEnWikiRegex.put("BN", "Bengali");
+    isoCodeToEnWikiRegex.put("BG", "Bulgarian");
+    isoCodeToEnWikiRegex.put("CA", "Catalan");
+    isoCodeToEnWikiRegex.put("SH", "Serbo-Croatian");
+    isoCodeToEnWikiRegex.put("HR", "Croatian");
+    isoCodeToEnWikiRegex.put("CS", "Czech");
+    isoCodeToEnWikiRegex.put("ZH", "Chinese");
+    isoCodeToEnWikiRegex.put("cmn", "Mandarin");
+    isoCodeToEnWikiRegex.put("yue", "Cantonese");
+    isoCodeToEnWikiRegex.put("DA", "Danish");
+    isoCodeToEnWikiRegex.put("NL", "Dutch");
+    isoCodeToEnWikiRegex.put("EN", "English");
+    isoCodeToEnWikiRegex.put("EO", "Esperanto");
+    isoCodeToEnWikiRegex.put("ET", "Estonian");
+    isoCodeToEnWikiRegex.put("FI", "Finnish");
+    isoCodeToEnWikiRegex.put("FR", "French");
+    isoCodeToEnWikiRegex.put("DE", "German");
+    isoCodeToEnWikiRegex.put("EL", "Greek");
+    isoCodeToEnWikiRegex.put("grc", "Ancient Greek");
+    isoCodeToEnWikiRegex.put("haw", "Hawaiian");
+    isoCodeToEnWikiRegex.put("HE", "Hebrew");
+    isoCodeToEnWikiRegex.put("HI", "Hindi");
+    isoCodeToEnWikiRegex.put("HU", "Hungarian");
+    isoCodeToEnWikiRegex.put("IS", "Icelandic");
+    isoCodeToEnWikiRegex.put("ID", "Indonesian");
+    isoCodeToEnWikiRegex.put("GA", "Irish");
+    isoCodeToEnWikiRegex.put("GD", "Gaelic");
+    isoCodeToEnWikiRegex.put("GV", "Manx");
+    isoCodeToEnWikiRegex.put("IT", "Italian");
+    isoCodeToEnWikiRegex.put("LA", "Latin");
+    isoCodeToEnWikiRegex.put("LV", "Latvian");
+    isoCodeToEnWikiRegex.put("LT", "Lithuanian");
+    isoCodeToEnWikiRegex.put("JA", "Japanese");
+    isoCodeToEnWikiRegex.put("KO", "Korean");
+    isoCodeToEnWikiRegex.put("KU", "Kurdish");
+    isoCodeToEnWikiRegex.put("LO", "Lao");
+    isoCodeToEnWikiRegex.put("MS", "Malay$");
+    isoCodeToEnWikiRegex.put("ML", "Malayalam");
+    isoCodeToEnWikiRegex.put("MI", "Maori");
+    isoCodeToEnWikiRegex.put("MN", "Mongolian");
+    isoCodeToEnWikiRegex.put("NE", "Nepali");
+    isoCodeToEnWikiRegex.put("NO", "Norwegian");
+    isoCodeToEnWikiRegex.put("FA", "Persian");
+    isoCodeToEnWikiRegex.put("PL", "Polish");
+    isoCodeToEnWikiRegex.put("PT", "Portuguese");
+    isoCodeToEnWikiRegex.put("PA", "Punjabi");
+    isoCodeToEnWikiRegex.put("RO", "Romanian");
+    isoCodeToEnWikiRegex.put("RU", "Russian");
+    isoCodeToEnWikiRegex.put("SA", "Sanskrit");
+    isoCodeToEnWikiRegex.put("SK", "Slovak");
+    isoCodeToEnWikiRegex.put("SL", "Slovene|Slovenian");
+    isoCodeToEnWikiRegex.put("SO", "Somali");
+    isoCodeToEnWikiRegex.put("ES", "Spanish");
+    isoCodeToEnWikiRegex.put("SW", "Swahili");
+    isoCodeToEnWikiRegex.put("SV", "Swedish");
+    isoCodeToEnWikiRegex.put("TL", "Tagalog");
+    isoCodeToEnWikiRegex.put("TG", "Tajik");
+    isoCodeToEnWikiRegex.put("TA", "Tamil");
+    isoCodeToEnWikiRegex.put("TH", "Thai");
+    isoCodeToEnWikiRegex.put("BO", "Tibetan");
+    isoCodeToEnWikiRegex.put("TR", "Turkish");
+    isoCodeToEnWikiRegex.put("UK", "Ukrainian");
+    isoCodeToEnWikiRegex.put("UR", "Urdu");
+    isoCodeToEnWikiRegex.put("VI", "Vietnamese");
+    isoCodeToEnWikiRegex.put("CI", "Welsh");
+    isoCodeToEnWikiRegex.put("YI", "Yiddish");
+    isoCodeToEnWikiRegex.put("ZU", "Zulu");
+    isoCodeToEnWikiRegex.put("AZ", "Azeri");
+    isoCodeToEnWikiRegex.put("EU", "Basque");
+    isoCodeToEnWikiRegex.put("BR", "Breton");
+    isoCodeToEnWikiRegex.put("MR", "Marathi");
+    isoCodeToEnWikiRegex.put("FO", "Faroese");
+    isoCodeToEnWikiRegex.put("GL", "Galician");
+    isoCodeToEnWikiRegex.put("KA", "Georgian");
+    isoCodeToEnWikiRegex.put("HT", "Haitian Creole");
+    isoCodeToEnWikiRegex.put("LB", "Luxembourgish");
+    isoCodeToEnWikiRegex.put("MK", "Macedonian");
+    isoCodeToEnWikiRegex.put("GV", "Manx");
     
     // No longer exists in EN:
     // isoCodeToEnWikiName.put("BS", "Bosnian");
@@ -119,82 +121,96 @@ public class WiktionaryLangs {
 
 
     {
-        Set<String> missing = new LinkedHashSet<String>(isoCodeToEnWikiName.keySet());
+        Set<String> missing = new LinkedHashSet<String>(isoCodeToEnWikiRegex.keySet());
         missing.removeAll(Language.isoCodeToResources.keySet());
         //System.out.println(missing);
     }
-    assert Language.isoCodeToResources.keySet().containsAll(isoCodeToEnWikiName.keySet());
+    assert Language.isoCodeToResources.keySet().containsAll(isoCodeToEnWikiRegex.keySet());
   }
+  
+    public static class WiktionaryDescriptor {
+        public final List<String> articleTitlesToIgnore = new ArrayList<String>();
+        public final String templatePrefix;
+        public final String modulePrefix;
+        public final Map<String, String> isoCodeToLocalNameRegex = new LinkedHashMap<String, String>();
 
-  public static final Map<String,Map<String,String>> wikiCodeToIsoCodeToWikiName = new LinkedHashMap<String, Map<String,String>>();
+        private WiktionaryDescriptor(String templatePrefix, String modulePrefix) {
+            this.templatePrefix = templatePrefix;
+            this.modulePrefix = modulePrefix;
+        }
+    }
+
+  public static final Map<String, WiktionaryDescriptor> wikiCodeToWiktionaryDescriptor = new LinkedHashMap<String, WiktionaryDescriptor>();
   static {
     // en
-    wikiCodeToIsoCodeToWikiName.put("en", isoCodeToEnWikiName);
+      WiktionaryDescriptor wiktionaryDescriptor;
+      wiktionaryDescriptor = new WiktionaryDescriptor("Template:", "Module:");
+      wikiCodeToWiktionaryDescriptor.put("en", wiktionaryDescriptor);
+      wiktionaryDescriptor.isoCodeToLocalNameRegex.putAll(isoCodeToEnWikiRegex); 
     
-    Map<String,String> isoCodeToWikiName;
     
     // egrep -o '\{\{Wortart[^}]+\}\}' dewiktionary-pages-articles.xml | cut -d \| -f3 | sort | uniq -c | sort -nr
-    isoCodeToWikiName = new LinkedHashMap<String, String>();
-    wikiCodeToIsoCodeToWikiName.put("de", isoCodeToWikiName);
-    isoCodeToWikiName.put("DE", "Deutsch");
-    isoCodeToWikiName.put("EN", "Englisch");
-    isoCodeToWikiName.put("IT", "Italienisch");
-    isoCodeToWikiName.put("PL", "Polnisch");
-    isoCodeToWikiName.put("FR", "Französisch");
-    isoCodeToWikiName.put("EO", "Esperanto");
-    isoCodeToWikiName.put("CA", "Katalanisch");
-    isoCodeToWikiName.put("LA", "Lateinisch");
-    isoCodeToWikiName.put("CS", "Tschechisch");
-    isoCodeToWikiName.put("HU", "Ungarisch");
-    isoCodeToWikiName.put("SV", "Schwedisch");
-    isoCodeToWikiName.put("ES", "Spanisch");
+    wiktionaryDescriptor = new WiktionaryDescriptor("Vorlage:", "Modul:");
+    wikiCodeToWiktionaryDescriptor.put("de", wiktionaryDescriptor);
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("DE", "Deutsch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("EN", "Englisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("IT", "Italienisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("PL", "Polnisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("FR", "Französisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("EO", "Esperanto");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("CA", "Katalanisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("LA", "Lateinisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("CS", "Tschechisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("HU", "Ungarisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("SV", "Schwedisch");
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("ES", "Spanisch");
 
     // egrep -o '\{\{=[a-zA-Z]+=\}\}' frwiktionary-pages-articles.xml | sort | uniq -c | sort -nr
-    isoCodeToWikiName = new LinkedHashMap<String, String>();
-    wikiCodeToIsoCodeToWikiName.put("fr", isoCodeToWikiName);
-    isoCodeToWikiName.put("FR", Pattern.quote("{{langue|fr}}"));
-    isoCodeToWikiName.put("RU", Pattern.quote("{{langue|ru}}"));
-    isoCodeToWikiName.put("BG", Pattern.quote("{{langue|bg}}"));  // Bulgarian
-    isoCodeToWikiName.put("EN", Pattern.quote("{{langue|en}}"));
-    //isoCodeToWikiName.put("", Pattern.quote("{{langue|sl}}"));
-    isoCodeToWikiName.put("LA", Pattern.quote("{{langue|la}}"));
-    isoCodeToWikiName.put("IT", Pattern.quote("{{langue|it}}"));
-    isoCodeToWikiName.put("EO", Pattern.quote("{{langue|eo}}"));
-    isoCodeToWikiName.put("CS", Pattern.quote("{{langue|cs}}"));  // Czech
-    isoCodeToWikiName.put("NL", Pattern.quote("{{langue|nl}}"));  // Dutch
-    //isoCodeToWikiName.put("", Pattern.quote("{{langue|mg}}"));
-    //isoCodeToWikiName.put("", Pattern.quote("{{langue|hsb}}"));
-    isoCodeToWikiName.put("ZH", Pattern.quote("{{langue|zh}}"));
-    isoCodeToWikiName.put("cmn", Pattern.quote("{{langue|cmn}}"));
-    isoCodeToWikiName.put("yue", Pattern.quote("{{langue|yue}}"));
-    isoCodeToWikiName.put("JA", Pattern.quote("{{langue|ja}}"));
-    isoCodeToWikiName.put("DE", Pattern.quote("{{langue|de}}"));
-    isoCodeToWikiName.put("IS", Pattern.quote("{{langue|is}}"));  // Icelandic
-    isoCodeToWikiName.put("ES", Pattern.quote("{{langue|es}}"));
-    isoCodeToWikiName.put("UK", Pattern.quote("{{langue|uk}}"));
+    wiktionaryDescriptor = new WiktionaryDescriptor("Modèle:", "Module:");
+    wikiCodeToWiktionaryDescriptor.put("fr", wiktionaryDescriptor);
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("FR", Pattern.quote("{{langue|fr}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("RU", Pattern.quote("{{langue|ru}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("BG", Pattern.quote("{{langue|bg}}"));  // Bulgarian
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("EN", Pattern.quote("{{langue|en}}"));
+    //wiktionaryDescriptor.isoCodeToLocalNameRegex.put("", Pattern.quote("{{langue|sl}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("LA", Pattern.quote("{{langue|la}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("IT", Pattern.quote("{{langue|it}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("EO", Pattern.quote("{{langue|eo}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("CS", Pattern.quote("{{langue|cs}}"));  // Czech
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("NL", Pattern.quote("{{langue|nl}}"));  // Dutch
+    //wiktionaryDescriptor.isoCodeToLocalNameRegex.put("", Pattern.quote("{{langue|mg}}"));
+    //wiktionaryDescriptor.isoCodeToLocalNameRegex.put("", Pattern.quote("{{langue|hsb}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("ZH", Pattern.quote("{{langue|zh}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("cmn", Pattern.quote("{{langue|cmn}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("yue", Pattern.quote("{{langue|yue}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("JA", Pattern.quote("{{langue|ja}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("DE", Pattern.quote("{{langue|de}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("IS", Pattern.quote("{{langue|is}}"));  // Icelandic
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("ES", Pattern.quote("{{langue|es}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("UK", Pattern.quote("{{langue|uk}}"));
 
     // egrep -o '= *\{\{-[a-z]+-\}\} *=' itwiktionary-pages-articles.xml | sort | uniq -c | sort -n
-    isoCodeToWikiName = new LinkedHashMap<String, String>();
-    wikiCodeToIsoCodeToWikiName.put("it", isoCodeToWikiName);
-    isoCodeToWikiName.put("IT", "\\{\\{-(it|scn|nap|cal|lmo)-\\}\\}");  // scn, nap, cal, lmo
-    isoCodeToWikiName.put("EN", Pattern.quote("{{-en-}}"));
-    isoCodeToWikiName.put("FR", Pattern.quote("{{-fr-}}"));
-    isoCodeToWikiName.put("DE", Pattern.quote("{{-de-}}"));
-    isoCodeToWikiName.put("ES", Pattern.quote("{{-es-}}"));
-    isoCodeToWikiName.put("JA", Pattern.quote("{{-ja-}}"));
-    isoCodeToWikiName.put("PL", Pattern.quote("{{-pl-}}"));
-    isoCodeToWikiName.put("NL", Pattern.quote("{{-nl-}}"));
-    isoCodeToWikiName.put("LV", Pattern.quote("{{-lv-}}"));
-    isoCodeToWikiName.put("LA", Pattern.quote("{{-la-}}"));
-    isoCodeToWikiName.put("HU", Pattern.quote("{{-hu-}}"));
-    isoCodeToWikiName.put("EL", Pattern.quote("{{-grc-}}"));
-    isoCodeToWikiName.put("SV", Pattern.quote("{{-sv-}}"));
+    wiktionaryDescriptor = new WiktionaryDescriptor("Template:", "Modulo:");
+    wikiCodeToWiktionaryDescriptor.put("it", wiktionaryDescriptor);
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("IT", "\\{\\{-(it|scn|nap|cal|lmo)-\\}\\}");  // scn, nap, cal, lmo
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("EN", Pattern.quote("{{-en-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("FR", Pattern.quote("{{-fr-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("DE", Pattern.quote("{{-de-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("ES", Pattern.quote("{{-es-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("JA", Pattern.quote("{{-ja-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("PL", Pattern.quote("{{-pl-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("NL", Pattern.quote("{{-nl-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("LV", Pattern.quote("{{-lv-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("LA", Pattern.quote("{{-la-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("HU", Pattern.quote("{{-hu-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("EL", Pattern.quote("{{-grc-}}"));
+    wiktionaryDescriptor.isoCodeToLocalNameRegex.put("SV", Pattern.quote("{{-sv-}}"));
 
   }
   public static String getEnglishName(String langCode) {
-      String name = isoCodeToEnWikiName.get(langCode);
+      String name = isoCodeToEnWikiRegex.get(langCode);
       if (name == null) {
-          name = isoCodeToEnWikiName.get(langCode.toUpperCase());
+          name = isoCodeToEnWikiRegex.get(langCode.toUpperCase());
       }
       if (name == null) {
           return null;
