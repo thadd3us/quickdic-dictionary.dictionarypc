@@ -24,14 +24,12 @@ import org.xml.sax.SAXException;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -78,8 +76,9 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
     }
 
     public static void main(final String[] args) throws Exception {
+        System.out.println("Hello.");
         for (final String code : WiktionaryLangs.wikiCodeToWiktionaryDescriptor.keySet()) {
-            System.out.println("code=" + code);
+            System.err.println("code=" + code);
             // if (!code.equals("fr")) {continue;}
             final WiktionaryDescriptor wiktionaryDescriptor = WiktionaryLangs.wikiCodeToWiktionaryDescriptor.get(code);
             final WiktionarySplitter splitter = new WiktionarySplitter(wiktionaryDescriptor);
@@ -92,6 +91,7 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
             }
             splitter.templateSelector = new Selector(String.format("%s/%s.data", outputDir, "Templates"), "");
             splitter.moduleSelector = new Selector(String.format("%s/%s.data", outputDir, "Modules"), "");
+            splitter.moduleDir = new File(outputDir, "Modules");
 
             final String filePath = String.format("data/inputs/%swiktionary-pages-articles.xml", code);
             splitter.parseAndSplit(new File(filePath));
@@ -120,6 +120,7 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
     List<Selector> selectors = null;
     Selector templateSelector = null;
     Selector moduleSelector = null;
+    File moduleDir = null;
 
     StringBuilder titleBuilder;
     StringBuilder textBuilder;
@@ -146,7 +147,6 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
             selector.out.close();
         }
         templateSelector.out.close();
-        moduleSelector.out.close();
     }
 
     String lastPageTitle = null;
@@ -210,7 +210,8 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
         if (wiktionaryDescriptor.templatePrefix != null && 
                 title.startsWith(wiktionaryDescriptor.templatePrefix)) {
             try {
-                new Article(title, text).write(templateSelector.out);
+                new Article(title.replaceFirst(wiktionaryDescriptor.templatePrefix, ""), 
+                            text).write(templateSelector.out);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -220,7 +221,9 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
         if (wiktionaryDescriptor.modulePrefix != null &&
                 title.startsWith(wiktionaryDescriptor.modulePrefix)) {
             try {
-                new Article(title, text).write(moduleSelector.out);
+//                FileUtil.writeObject(o, file);
+                new Article(title.replaceFirst(wiktionaryDescriptor.modulePrefix, ""), 
+                            text).write(moduleSelector.out);
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
