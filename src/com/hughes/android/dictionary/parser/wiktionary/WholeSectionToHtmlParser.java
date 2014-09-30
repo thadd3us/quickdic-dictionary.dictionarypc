@@ -8,7 +8,6 @@ import com.hughes.android.dictionary.engine.IndexBuilder.TokenData;
 import com.hughes.android.dictionary.engine.IndexedEntry;
 import com.hughes.android.dictionary.parser.WikiTokenizer;
 import com.hughes.util.StringUtil;
-import com.sun.xml.internal.rngom.util.Uri;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -231,9 +230,11 @@ public class WholeSectionToHtmlParser extends AbstractWiktionaryParser {
     final String skipLangIso;
     final LangConfig langConfig;
     final String webUrlTemplate;
-    
 
-    public WholeSectionToHtmlParser(final IndexBuilder titleIndexBuilder, final IndexBuilder defIndexBuilder, final String wiktionaryIso, final String skipLangIso,
+    public WholeSectionToHtmlParser(final IndexBuilder titleIndexBuilder, 
+            final IndexBuilder defIndexBuilder, 
+            final String wiktionaryIso, 
+            final String skipLangIso,
             final String webUrlTemplate) {
         this.titleIndexBuilder = titleIndexBuilder;
         this.defIndexBuilder = defIndexBuilder;

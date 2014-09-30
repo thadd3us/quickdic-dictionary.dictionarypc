@@ -14,9 +14,17 @@
 
 package com.hughes.android.dictionary.parser.wiktionary;
 
+import com.hughes.android.dictionary.engine.EntrySource;
+import com.hughes.android.dictionary.engine.EntryTypeName;
+import com.hughes.android.dictionary.engine.IndexBuilder;
+import com.hughes.android.dictionary.engine.IndexedEntry;
+import com.hughes.android.dictionary.engine.WiktionarySplitter;
+import com.hughes.android.dictionary.parser.Parser;
+import com.hughes.android.dictionary.parser.WikiTokenizer;
+import com.hughes.util.EnumUtil;
+
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
-import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -28,18 +36,8 @@ import java.util.Set;
 import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-
-import com.hughes.android.dictionary.engine.EntrySource;
-import com.hughes.android.dictionary.engine.EntryTypeName;
-import com.hughes.android.dictionary.engine.IndexBuilder;
-import com.hughes.android.dictionary.engine.IndexedEntry;
-import com.hughes.android.dictionary.engine.WiktionarySplitter;
-import com.hughes.android.dictionary.parser.Parser;
-import com.hughes.android.dictionary.parser.WikiTokenizer;
-import com.hughes.util.EnumUtil;
 
 public abstract class AbstractWiktionaryParser implements Parser {
 

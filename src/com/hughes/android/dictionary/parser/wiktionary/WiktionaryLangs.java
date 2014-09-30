@@ -111,6 +111,7 @@ public class WiktionaryLangs {
     isoCodeToEnWikiRegex.put("LB", "Luxembourgish");
     isoCodeToEnWikiRegex.put("MK", "Macedonian");
     isoCodeToEnWikiRegex.put("GV", "Manx");
+    isoCodeToEnWikiRegex.put("SD", "Sindhi");
     
     // No longer exists in EN:
     // isoCodeToEnWikiName.put("BS", "Bosnian");
@@ -118,7 +119,6 @@ public class WiktionaryLangs {
     
     // Font doesn't work:
     //isoCodeToEnWikiName.put("MY", "Burmese");
-
 
     {
         Set<String> missing = new LinkedHashSet<String>(isoCodeToEnWikiRegex.keySet());

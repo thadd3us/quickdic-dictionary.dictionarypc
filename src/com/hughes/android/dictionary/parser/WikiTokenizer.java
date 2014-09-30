@@ -55,7 +55,7 @@ public final class WikiTokenizer {
     }
 
     @Override
-    public void onFunction(WikiTokenizer tokenizer, String functionName,
+    public void onFunction(WikiTokenizer wikiTokenizer, String functionName,
         List<String> functionPositionArgs, Map<String, String> functionNamedArgs) {
     }
 
