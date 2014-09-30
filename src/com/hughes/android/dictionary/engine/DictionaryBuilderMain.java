@@ -72,6 +72,7 @@ public class DictionaryBuilderMain extends TestCase {
       {"DE", "LA" },  // Latin
       {"DE", "NL" },  // Dutch
       {"DE", "PL" },  // Polish
+      {"DE", "PT" },  // Portuguese
       {"DE", "RU" },
       {"DE", "SV" },  // Swedish
       {"DE", "TR" },  // Turkish
