@@ -14,12 +14,16 @@ delete these entries:
 # {{conjugation of|abalienare||2|p|imp|lang=it}}
 # {{form of|[[feminine|Feminine]] plural|abalienato}}
 
-Hitory of lookups.
+History of lookups.
 
 make sure word is sticky when you change dictionaries.
 
 - on small device it would be great to be able to hide the system status bar and the title bar
 - an history list of the searched words per dictionary with the possibility of having a rudimentary flash card game from it to memorise new words
+
+Change text file encoding:
+iconv -f iso-8859-1 -t utf-8 < file > file.new
+iconv -f iso-8859-1 -t utf-8 file
 
 
 To republish:
