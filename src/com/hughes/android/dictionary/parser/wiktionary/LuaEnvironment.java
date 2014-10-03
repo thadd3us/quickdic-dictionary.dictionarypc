@@ -19,6 +19,7 @@ public class LuaEnvironment {
     LuaValue lua_package_loaded;
     LuaValue customPackages;
     
+    LuaTable parentFrame;
     LuaTable frame;
     
     public LuaEnvironment() {
@@ -30,8 +31,11 @@ public class LuaEnvironment {
         globals.load("function CustomPackageLoader(modname) return load(customPackages[modname], modname)(); end").call();
         globals.load("function FindCustomPackageLoader(modname) if customPackages[modname] then return CustomPackageLoader; end return nil; end").call();
         
+        parentFrame = (LuaTable) globals.load("parentFrame = {}; return parentFrame").call();
+        
         frame = new LuaTable();
-        frame.set("getParent", globals.load("return function (self) return self; end").call());
+        // TODO: this isn't right, the parent of an #invoke should be the template's frame!
+        frame.set("getParent", globals.load("return function (self) return parentFrame; end").call());
         
     }
     
