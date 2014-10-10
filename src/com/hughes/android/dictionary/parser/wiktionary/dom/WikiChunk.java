@@ -1,11 +1,12 @@
 package com.hughes.android.dictionary.parser.wiktionary.dom;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class WikiChunk implements Serializable {
     
-    List<WikiElement> wikiElements;
+    final List<WikiElement> wikiElements = new ArrayList<WikiElement>();
     
     void append(StringBuilder builder) {
         for (final WikiElement wikiElement : wikiElements) {

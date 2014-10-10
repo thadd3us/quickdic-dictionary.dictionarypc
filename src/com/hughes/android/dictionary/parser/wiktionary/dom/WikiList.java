@@ -1,14 +1,31 @@
 package com.hughes.android.dictionary.parser.wiktionary.dom;
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class WikiList implements WikiElement {
     
-    class Item {
-        WikiChunk wikiChunk;
+    static class Item implements Serializable {
+        final String listMarker;
+        final WikiChunk wikiChunk = new WikiChunk();
+        
+        Item(String listMarker) {
+            this.listMarker = listMarker;
+        }
     }
     
-    List<Item> items;
+    final List<Item> items = new ArrayList<Item>();
+
+    @Override
+    public void append(StringBuilder builder) {
+//        builder.append("\n");
+        for (final Item item : items) {
+            builder.append(item.listMarker).append("");
+            item.wikiChunk.append(builder);
+            builder.append("\n");
+        }
+    }
 
 }

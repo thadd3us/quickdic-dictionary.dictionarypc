@@ -3,7 +3,7 @@ package com.hughes.android.dictionary.parser.wiktionary.dom;
 public class WikiHeading implements WikiElement {
     
     int depth;
-    WikiChunk name;
+    final WikiChunk name = new WikiChunk();
 
     @Override
     public void append(StringBuilder builder) {

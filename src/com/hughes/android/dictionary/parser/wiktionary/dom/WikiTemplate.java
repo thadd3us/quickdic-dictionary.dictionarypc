@@ -1,13 +1,15 @@
 package com.hughes.android.dictionary.parser.wiktionary.dom;
 
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class WikiTemplate implements WikiElement {
     
     String name;
-    List<WikiChunk> positionArgs;
-    Map<String, WikiChunk> namedArgs;
+    final List<WikiChunk> positionArgs = new ArrayList<WikiChunk>();
+    final Map<String, WikiChunk> namedArgs = new LinkedHashMap<String, WikiChunk>();
     
     
     WikiChunk expanded;

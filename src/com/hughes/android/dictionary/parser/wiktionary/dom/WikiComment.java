@@ -1,10 +1,10 @@
 package com.hughes.android.dictionary.parser.wiktionary.dom;
 
-public class WikiPlainText implements WikiElement {
+public class WikiComment implements WikiElement {
     
-    String text;
-
-    public WikiPlainText(String text) {
+    final String text;
+    
+    WikiComment(String text) {
         this.text = text;
     }
 
