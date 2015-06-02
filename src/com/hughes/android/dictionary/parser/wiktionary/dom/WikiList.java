@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class WikiList implements WikiElement {
+public class WikiList extends WikiElement {
     
     static class Item implements Serializable {
         final String listMarker;

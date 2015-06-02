@@ -5,12 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-public class WikiTemplate implements WikiElement {
+public class WikiTemplate extends WikiElement {
     
     String name;
     final List<WikiChunk> positionArgs = new ArrayList<WikiChunk>();
     final Map<String, WikiChunk> namedArgs = new LinkedHashMap<String, WikiChunk>();
-    
     
     WikiChunk expanded;
 

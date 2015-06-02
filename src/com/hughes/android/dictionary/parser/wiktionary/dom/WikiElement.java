@@ -2,8 +2,8 @@ package com.hughes.android.dictionary.parser.wiktionary.dom;
 
 import java.io.Serializable;
 
-public interface WikiElement extends Serializable {
+public abstract class WikiElement implements Serializable {
     
-    void append(StringBuilder builder);
-
+    abstract void append(StringBuilder builder);
+    
 }

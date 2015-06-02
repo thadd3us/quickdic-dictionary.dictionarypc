@@ -2,7 +2,7 @@ package com.hughes.android.dictionary.parser.wiktionary.dom;
 
 public class WikiFormatting {
     
-    static class Bold implements WikiElement {
+    static class Bold extends WikiElement {
         @Override
         public void append(StringBuilder builder) {
             builder.append("'''");
@@ -10,7 +10,7 @@ public class WikiFormatting {
     };
     static final Bold BOLD = new Bold();
     
-    static class Italic implements WikiElement {
+    static class Italic extends WikiElement {
         @Override
         public void append(StringBuilder builder) {
             builder.append("''");
@@ -18,7 +18,7 @@ public class WikiFormatting {
     }
     static final Italic ITALIC = new Italic();
 
-    static class Newline implements WikiElement {
+    static class Newline extends WikiElement {
         @Override
         public void append(StringBuilder builder) {
             builder.append("\n");

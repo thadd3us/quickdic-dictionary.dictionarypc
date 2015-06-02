@@ -1,6 +1,6 @@
 package com.hughes.android.dictionary.parser.wiktionary.dom;
 
-public class WikiHeading implements WikiElement {
+public class WikiHeading extends WikiElement {
     
     int depth;
     final WikiChunk name = new WikiChunk();

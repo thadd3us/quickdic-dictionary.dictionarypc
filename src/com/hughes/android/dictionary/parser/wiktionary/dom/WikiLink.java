@@ -1,6 +1,6 @@
 package com.hughes.android.dictionary.parser.wiktionary.dom;
 
-public class WikiLink implements WikiElement {
+public class WikiLink extends WikiElement {
     
     String dest;
     WikiChunk displayChunk;

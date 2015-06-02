@@ -6,6 +6,8 @@ import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
 import org.luaj.vm2.lib.jse.JsePlatform;
 
+import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
@@ -23,7 +25,7 @@ public class LuaEnvironment {
     LuaTable frame;
     
     public LuaEnvironment() {
-        globals = JsePlatform.standardGlobals();
+        globals = JsePlatform.debugGlobals();
         lua_package = globals.get("package");
         lua_package_loaded = lua_package.get("loaded");
         
@@ -32,11 +34,25 @@ public class LuaEnvironment {
         globals.load("function FindCustomPackageLoader(modname) if customPackages[modname] then return CustomPackageLoader; end return nil; end").call();
         
         parentFrame = (LuaTable) globals.load("parentFrame = {}; return parentFrame").call();
-        
-        frame = new LuaTable();
+
+        frame = (LuaTable) globals.load("frame = {}; return frame").call();
+
         // TODO: this isn't right, the parent of an #invoke should be the template's frame!
         frame.set("getParent", globals.load("return function (self) return parentFrame; end").call());
-        
+    }
+    
+    public static void setFrameArgs(final LuaTable frame, 
+            final List<String> positionArgs, 
+            final Map<String, String> namedArgs) {
+        // for k,v in pairs(tab) do tab[k]=nil end
+        LuaTable args = new LuaTable();
+        for (int i = 0; i < positionArgs.size(); ++i) {
+            args.set(i + 1, positionArgs.get(i));
+        }
+        for (final Map.Entry<String, String> namedArg : namedArgs.entrySet()) {
+            args.set(namedArg.getKey(), namedArg.getValue());
+        }
+        frame.set("args", args);
     }
     
     Pattern ASCII = Pattern.compile("[^\\p{ASCII}]");

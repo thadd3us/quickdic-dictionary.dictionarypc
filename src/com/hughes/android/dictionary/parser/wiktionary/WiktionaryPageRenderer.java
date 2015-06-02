@@ -5,11 +5,14 @@ import com.hughes.android.dictionary.engine.WiktionarySplitter;
 import com.hughes.android.dictionary.engine.WiktionarySplitter.Article;
 import com.hughes.android.dictionary.parser.WikiTokenizer;
 import com.hughes.android.dictionary.parser.WikiTokenizer.Callback;
+import com.hughes.android.dictionary.parser.wiktionary.dom.DispatchIntoDom;
+import com.hughes.android.dictionary.parser.wiktionary.dom.WikiChunk;
 import com.hughes.util.FileUtil;
 
 import org.luaj.vm2.LuaError;
 import org.luaj.vm2.LuaTable;
 import org.luaj.vm2.LuaValue;
+import org.luaj.vm2.lib.DebugLib;
 
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
@@ -98,6 +101,10 @@ public class WiktionaryPageRenderer {
             final File dir) throws IOException {
         loadAndIndexPages(new File(dir, "Templates.data"), -1, templates);
         loadAndIndexPages(new File(dir, "Modules.data"), -1, modules);
+        
+//        globals.load(new JseBaseLib());
+//        * globals.load(new PackageLib());
+        luaEnvironment.globals.load(new DebugLib());
         
         LOG.info("Loading MediaWiki stub framework.");
         final String mw = FileUtil.readToString(new File("src/com/hughes/android/dictionary/parser/wiktionary/mw.lua"));
@@ -211,6 +218,9 @@ public class WiktionaryPageRenderer {
             final Article template = templates.get(functionName);
             LOG.info("Processing template: " + wikiTokenizer.token());
             if (template != null) {
+                LuaEnvironment.setFrameArgs(
+                        luaEnvironment.parentFrame, functionPositionArgs, functionNamedArgs);
+
                 String instantiatedTemplate = WikiUtil.instantiateAllTemplateArgs(template.text, functionPositionArgs, functionNamedArgs);
                 LOG.info("Instantiating template " + functionName + ": " + instantiatedTemplate);
                 WikiTokenizer.dispatch(instantiatedTemplate, false, callback);
@@ -236,6 +246,9 @@ public class WiktionaryPageRenderer {
         LOG.info("Invoking module: " + module.title + ", " + module.text);
         LuaValue m = luaEnvironment.globals.load(String.format("return require(\"Module:%s\")", module.title)).call();
         
+        LuaEnvironment.setFrameArgs(
+                luaEnvironment.frame, functionPositionArgs, functionNamedArgs);
+        
         LuaTable args = new LuaTable();
         for (int i = 0; i < functionPositionArgs.size(); ++i) {
             args.set(i + 1, functionPositionArgs.get(i));
@@ -245,12 +258,12 @@ public class WiktionaryPageRenderer {
         }
         
         luaEnvironment.frame.set("args", args);
-        LOG.info(luaEnvironment.frame.tojstring());
+        LOG.info("Frame: " + luaEnvironment.frame.tojstring());
         
         try {
           LuaValue result = m.get(functionPositionArgs.get(0)).call(luaEnvironment.frame);
         } catch (LuaError luaError) {
-            LOG.log(Level.SEVERE, luaError.getMessage());
+            LOG.log(Level.SEVERE, "Caught a lua error: " + luaError.getMessage());
             final Pattern pattern = Pattern.compile("Module:([^:]+):([0-9]+).*");
             final Matcher matcher = pattern.matcher(luaError.getMessage()); 
             if (matcher.matches()) {
@@ -259,6 +272,7 @@ public class WiktionaryPageRenderer {
                 final Article article = modules.get(file);
                 final String[] lines = article.text.split("\n");
                 // Lua is 1-based indexing.
+                LOG.log(Level.SEVERE, "Error in script: " + article.text);
                 LOG.log(Level.SEVERE, "Error on line: " + lines[line - 1]);
             }
             assert false;
@@ -270,6 +284,7 @@ public class WiktionaryPageRenderer {
     public Section renderPage(
             final String title, final String wikiText) {
         final Section top = new Section(null, 0);
+        final WikiChunk wikiChunk = DispatchIntoDom.go(wikiText);
         current = top;
         render(title, wikiText);
         return top;

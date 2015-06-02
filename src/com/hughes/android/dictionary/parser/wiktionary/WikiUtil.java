@@ -53,7 +53,6 @@ public class WikiUtil {
                 }
             }
             templateText = templateText.substring(0, argStart - 3) + value + templateText.substring(argEnd + 3);
-            
         }
         return templateText;
     }

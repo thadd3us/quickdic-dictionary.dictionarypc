@@ -7,8 +7,6 @@ import com.hughes.util.StringUtil;
 import java.util.List;
 import java.util.Map;
 
-import javax.swing.plaf.ListUI;
-
 public class DispatchIntoDom {
     
     static class Callback implements WikiTokenizer.Callback {
@@ -117,7 +115,7 @@ public class DispatchIntoDom {
         
     }
     
-    static WikiChunk go(final String wikiText) {
+    public static WikiChunk go(final String wikiText) {
         final Callback callback = new Callback(new WikiChunk());
         WikiTokenizer.dispatch(wikiText, true, callback);
         final List<WikiElement> wikiElements = callback.wikiChunk.wikiElements; 

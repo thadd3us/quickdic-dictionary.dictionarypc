@@ -1,6 +1,6 @@
 package com.hughes.android.dictionary.parser.wiktionary.dom;
 
-public class WikiComment implements WikiElement {
+public class WikiComment extends WikiElement {
     
     final String text;
     
