@@ -1,3 +1,8 @@
+Prelaunch:
+* Update flags images.
+
+
+
 Handle wiki tables {| ..  |-|  .. |}
 de-conj
 why does presso not show up?
