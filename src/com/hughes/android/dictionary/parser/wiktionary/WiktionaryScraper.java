@@ -1,5 +1,5 @@
 
-package com.hughes.android.dictionary.wiktionary;
+package com.hughes.android.dictionary.parser.wiktionary;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
