@@ -17,7 +17,6 @@ package com.hughes.android.dictionary.engine;
 import com.hughes.android.dictionary.parser.wiktionary.WiktionaryLangs;
 import com.hughes.android.dictionary.parser.wiktionary.WiktionaryLangs.WiktionaryDescriptor;
 
-import org.apache.xerces.jaxp.SAXParserFactoryImpl;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 
@@ -35,6 +34,7 @@ import java.util.regex.Pattern;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
     
@@ -131,7 +131,7 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
     }
 
     private void parseAndSplit(final File inputFile) throws Exception {
-        final SAXParser parser = SAXParserFactoryImpl.newInstance().newSAXParser();
+        final SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 
         // Do it.
         try {
@@ -315,7 +315,7 @@ public class WiktionarySplitter extends org.xml.sax.helpers.DefaultHandler {
 
     public void parse(final File file) throws ParserConfigurationException,
             SAXException, IOException {
-        final SAXParser parser = SAXParserFactoryImpl.newInstance().newSAXParser();
+        final SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
         parser.parse(file, this);
     }
 

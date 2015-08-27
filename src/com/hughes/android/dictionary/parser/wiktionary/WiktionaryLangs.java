@@ -133,6 +133,7 @@ public class WiktionaryLangs {
         public final String templatePrefix;
         public final String modulePrefix;
         public final Map<String, String> isoCodeToLocalNameRegex = new LinkedHashMap<String, String>();
+        public final Map<String, String> headerNameToIsoCode = new LinkedHashMap<String, String>();
 
         private WiktionaryDescriptor(String templatePrefix, String modulePrefix) {
             this.templatePrefix = templatePrefix;
@@ -146,6 +147,10 @@ public class WiktionaryLangs {
       WiktionaryDescriptor wiktionaryDescriptor;
       wiktionaryDescriptor = new WiktionaryDescriptor("Template:", "Module:");
       wikiCodeToWiktionaryDescriptor.put("en", wiktionaryDescriptor);
+      wiktionaryDescriptor.headerNameToIsoCode.put("English", "EN");
+      wiktionaryDescriptor.headerNameToIsoCode.put("Italian", "IT");
+      wiktionaryDescriptor.headerNameToIsoCode.put("German", "DE");
+      wiktionaryDescriptor.headerNameToIsoCode.put("Dutch", "NL");
       wiktionaryDescriptor.isoCodeToLocalNameRegex.putAll(isoCodeToEnWikiRegex); 
     
     
