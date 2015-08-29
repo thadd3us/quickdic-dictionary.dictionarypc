@@ -7,6 +7,8 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class TrieBuilderTest {
 
@@ -26,8 +28,10 @@ public class TrieBuilderTest {
         List<TrieBuilder.Node<Integer>> nodes = new ArrayList<TrieBuilder.Node<Integer>>();
         
         String[] strings = new String[] {"", "abcD", "a", "ab", "a", "abcE", "abcA", "a", "abcEf"};
+        Set<String> expectedValues = new TreeSet<String>();
         
         for (String string : strings) {
+            expectedValues.add(string);
             nodes.add(trieBuilder.getOrCreateNode(string.getBytes()));
         }
         
@@ -38,6 +42,7 @@ public class TrieBuilderTest {
         assertEquals(-1, trie.find("A".getBytes()));
         assertEquals(8, trie.nodeStarts.length);
         assertEquals(7, trie.childKeyBytes.length);
+        assertEqu
     }
     
     @Test

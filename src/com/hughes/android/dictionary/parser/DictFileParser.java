@@ -42,24 +42,6 @@ public class DictFileParser implements Parser {
   
   static final Logger logger = Logger.getLogger(DictFileParser.class.getName());
 
-  // Dictcc
-  public static final Pattern TAB = Pattern.compile("\\t");
-
-  // Chemnitz
-  public static final Pattern DOUBLE_COLON = Pattern.compile(" :: ");
-  public static final Pattern PIPE = Pattern.compile("\\|");
-  
-  static final Pattern SPACES = Pattern.compile("\\s+");
-  
-  static final Pattern BRACKETED = Pattern.compile("\\[([^]]+)\\]");
-  static final Pattern PARENTHESIZED = Pattern.compile("\\(([^)]+)\\)");
-  static final Pattern CURLY_BRACED = Pattern.compile("\\{([^}]+)\\}");
-  
-  // http://www.regular-expressions.info/unicode.html
-  static final Pattern NON_CHAR_DASH = Pattern.compile("[^-'\\p{L}\\p{M}\\p{N}]+");
-  public static final Pattern NON_CHAR = Pattern.compile("[^\\p{L}\\p{M}\\p{N}]+");
-
-  static final Pattern TRIM_PUNC = Pattern.compile("^[^\\p{L}\\p{M}\\p{N}]+|[^\\p{L}\\p{M}\\p{N}]+$");
 
   final Charset charset;
   final boolean flipCols;

@@ -24,6 +24,7 @@ public class TrieBuilder<T> {
             trieBuilder.nodeStarts.add(start);
             assert children.size() < 127;
             trieBuilder.nodeLengths.add((short) children.size());
+            trieBuilder.values.add(value);
             
             for (int i = 0; i < children.size(); ++i) {
                 trieBuilder.childKeyBytes.add(null);
@@ -47,7 +48,8 @@ public class TrieBuilder<T> {
     List<Integer> nodeStarts = new ArrayList<Integer>(); 
     List<Short> nodeLengths = new ArrayList<Short>(); 
     List<Byte> childKeyBytes = new ArrayList<Byte>(); 
-    List<Integer> childNextNodeIndices = new ArrayList<Integer>(); 
+    List<Integer> childNextNodeIndices = new ArrayList<Integer>();
+    List<T> values;
 
     Node<T> getOrCreateNode(byte[] bytes) {
         Node<T> node = root;
@@ -66,7 +68,8 @@ public class TrieBuilder<T> {
         nodeStarts = new ArrayList<Integer>(); 
         nodeLengths = new ArrayList<Short>(); 
         childKeyBytes = new ArrayList<Byte>(); 
-        childNextNodeIndices = new ArrayList<Integer>(); 
+        childNextNodeIndices = new ArrayList<Integer>();
+        values = new ArrayList<T>();
         
         root.serialize(this);
         assert nodeLengths.size() == nodeStarts.size();
